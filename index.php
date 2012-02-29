@@ -23,3 +23,4 @@ if (isset($_SESSION['key'])) {
 }
 print "<p>Send field name 'key' to store its value in the session</p>";
 ?>
+
