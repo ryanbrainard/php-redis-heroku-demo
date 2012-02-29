@@ -1,0 +1,8 @@
+<project name="Sample Phing Build" default="www">
+  <target name="stage">
+    <fail unless="env.PUBLIC_HTML_DIR" message="Enivronment variable PUBLIC_HTML_DIR must be set"/>
+    <copy todir="${env.PUBLIC_HTML_DIR}">
+      <fileset dir="src/main/php"/>
+    </copy>
+  </target>
+</project>
