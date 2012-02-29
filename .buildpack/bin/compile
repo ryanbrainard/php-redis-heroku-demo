@@ -54,7 +54,7 @@ fi
 
 # install redis always until we cache it...
   REDIS_URL="https://s3.amazonaws.com/rbrainard-public/redis.so"
-  echo "-----> Bundling Redis extension
+  echo "-----> Bundling Redis extension"
   curl --silent --max-time 60 --location $REDIS_URL > $BUILD_DIR/php/ext/redis.so
 
 # update config files
