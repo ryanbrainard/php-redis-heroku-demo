@@ -1,9 +1,3 @@
-<html>
-<head>
-  <title>PHP Redis Demo</title>
-</head>
-<body>
-
 <?php
 
 // Check if Redis is configured
@@ -47,7 +41,19 @@ $r->connect(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_HOST), parse_url($_ENV['RE
 if (!is_array(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS))) {
   $r->auth(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS));
 }
+
+// send for async processing
+if (isset($_REQUEST['asyncValue'])) {
+    $r->rpush("ASYNC_QUEUE", $_REQUEST['asyncValue']);
+}
+
 ?>
+
+<html>
+<head>
+  <title>PHP Redis Demo</title>
+</head>
+<body>
 
 <h1>PHP Redis Demo</h1>
 
@@ -59,7 +65,15 @@ if (!is_array(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS))) {
 </form>
 
 <h2>Using Redis Directly from PHP</h2>
+
+<h3>Synchronously</h3>
 <p>Hit counter: <?php echo $r->incr('hit_counter'); ?></p>
+
+<h3>Asynchronously</h3>
+<form method="post" action="">
+  Value: <input name="asyncValue" />
+  <input type="submit" value="Enqueue"/>
+</form>
 
 <h2>Scalability and Relatibity</h2>
 <p>Try scaling out the web processes so there are multiple Apaches running. Notice how this the Redis-backed sessions and data are unaffected.</p>

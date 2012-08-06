@@ -5,9 +5,9 @@
     $r->auth(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS));
   }
   
-  $r->incr('foo');
-  var_dump(
-  'Redis::get("foo") -> '. $r->get('foo'),
-  $r->info()
-  );
+  while (true) {
+      echo "ASYNC WORKER - BEGIN BLPOP";
+      echo $r->blpop("ASYNC_QUEUE", 10);
+      echo "ASYNC WORKER - END BLPOP";
+  }
 ?>
