@@ -6,8 +6,9 @@
   }
   
   while (true) {
-      echo "ASYNC WORKER - BEGIN BLPOP";
-      echo $r->blpop("ASYNC_QUEUE", 10);
-      echo "ASYNC WORKER - END BLPOP";
+      echo "ASYNC WORKER - BEGIN BLPOP\n";
+      $request = $r->blpop("ASYNC_QUEUE", 0);
+      var_dump($request);
+      echo "ASYNC WORKER - END BLPOP\n";
   }
 ?>
