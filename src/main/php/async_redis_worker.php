@@ -7,8 +7,17 @@
   
   while (true) {
       echo "ASYNC WORKER - BEGIN BLPOP\n";
-      $request = $r->blpop("ASYNC_QUEUE", 30);
-      print_r(unserialize($request[1]));
+      $requestSerialized = $r->blpop("ASYNC_QUEUE", 30);
+      $_REQUEST = unserialize($requestSerialized[1]);
+
+      session_id($_REQUEST[session_name()]);
+      session_start();
+
+      print_r($_REQUEST);
+      print_r($_SESSION);
+
+      session_write_close();
+
       echo "ASYNC WORKER - END BLPOP\n";
   }
 ?>
