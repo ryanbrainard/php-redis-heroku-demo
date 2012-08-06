@@ -1,4 +1,13 @@
 <?php
+  // session use
+  $redis_url = "tcp://" . parse_url($_ENV['REDISTOGO_URL'], PHP_URL_HOST) . ":" . parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PORT);
+  if (!is_array(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS))) {
+    $redis_url .= "?auth=" . parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS);
+  }
+  ini_set("session.save_path", $redis_url);
+  ini_set("session.save_handler", "redis");
+
+  // direct use
   $r = new Redis();
   $r->connect(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_HOST), parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PORT));
   if (!is_array(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS))) {
