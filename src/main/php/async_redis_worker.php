@@ -15,6 +15,7 @@
       session_id($asyncReq["SESSION_ID"]);
       session_start();
 
+      print_r($asyncReq);
       print_r($_REQUEST);
       print_r($_SESSION);
 
