@@ -6,6 +6,7 @@
   }
   ini_set("session.save_path", $redis_url);
   ini_set("session.save_handler", "redis");
+  ini_set("session.use_cookies", false);
 
   // direct use
   $r = new Redis();
