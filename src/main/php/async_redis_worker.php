@@ -8,7 +8,7 @@
   while (true) {
       echo "ASYNC WORKER - BEGIN BLPOP\n";
       $request = $r->blpop("ASYNC_QUEUE", 30);
-      print_r(unserialize($request));
+      print_r(unserialize($request[1]));
       echo "ASYNC WORKER - END BLPOP\n";
   }
 ?>
