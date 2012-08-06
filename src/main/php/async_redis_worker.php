@@ -6,11 +6,13 @@
   }
   
   while (true) {
-      echo "ASYNC WORKER - BEGIN BLPOP\n";
-      $requestSerialized = $r->blpop("ASYNC_QUEUE", 30);
-      $_REQUEST = unserialize($requestSerialized[1]);
+      $asyncReqSerialized = $r->blpop("ASYNC_QUEUE", 30);
 
-      session_id($_REQUEST[session_name()]);
+      $asyncReq = unserialize($asyncReqSerialized[1]);
+
+      $_REQUEST = $asyncReq["_REQUEST"];
+
+      session_id($asyncReq["SESSION_ID"]);
       session_start();
 
       print_r($_REQUEST);
@@ -18,6 +20,6 @@
 
       session_write_close();
 
-      echo "ASYNC WORKER - END BLPOP\n";
+      echo "ASYNC WORKER - END LOOP\n";
   }
 ?>

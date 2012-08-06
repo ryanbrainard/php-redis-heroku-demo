@@ -44,7 +44,11 @@ if (!is_array(parse_url($_ENV['REDISTOGO_URL'], PHP_URL_PASS))) {
 
 // send for async processing
 if (isset($_REQUEST['asyncValue'])) {
-    $r->rpush("ASYNC_QUEUE", serialize($_REQUEST));
+    $asyncReq = array();
+    $asyncReq["SESSION_ID"] = session_id();
+    $asyncReq["_REQUEST"] = $_REQUEST;
+
+    $r->rpush("ASYNC_QUEUE", serialize($asyncReq));
 }
 
 ?>
