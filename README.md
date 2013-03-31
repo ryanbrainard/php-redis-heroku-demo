@@ -12,3 +12,4 @@ Deployment
 4. `heroku addons:add redistogo:nano`
 5. `git push heroku master`
 6. Follow the instructions in the app for demoing different aspects of Redis with PHP on Heroku.
+
